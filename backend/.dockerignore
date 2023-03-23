@@ -1,0 +1,14 @@
+__pycache__/
+.env
+.env.sample
+.static
+.media
+.docker-compose
+.dockerignore
+Dockerfile
+poetry.lock
+.DS_Store
+**/.DS_Store
+.pytest_cache
+pytest.ini
+

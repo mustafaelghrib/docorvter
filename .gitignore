@@ -1,0 +1,12 @@
+# backend
+poetry.lock
+__pycache__/
+.env
+.static
+.media
+.volumes
+migrations
+!migrations/__init__.py
+.pytest_cache
+.venv
+
