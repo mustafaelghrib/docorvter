@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 python:3.10-slim AS builder
+FROM --platform=linux/amd64 python:3.11-slim AS builder
 
 ENV \
 PYTHONDONTWRITEBYTECODE=1 \
@@ -8,7 +8,7 @@ PYTHONHASHSEED=random \
 PIP_NO_CACHE_DIR=off \
 PIP_DISABLE_PIP_VERSION_CHECK=on \
 PIP_DEFAULT_TIMEOUT=100 \
-POETRY_VERSION=1.2.1
+POETRY_VERSION=1.4.1
 
 COPY pyproject.toml /pyproject.toml
 
@@ -24,7 +24,7 @@ RUN apt-get update && \
     apt-get -y autoremove && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-FROM --platform=linux/amd64 python:3.10-slim AS main
+FROM --platform=linux/amd64 python:3.11-slim AS main
 
 COPY --from=builder /opt/venv /opt/venv
 
