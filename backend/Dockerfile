@@ -28,5 +28,7 @@ FROM --platform=linux/amd64 python:3.11-slim AS main
 
 COPY --from=builder /opt/venv /opt/venv
 
+RUN apt-get update && apt-get install -y wkhtmltopdf
+
 WORKDIR /backend
 COPY . .
