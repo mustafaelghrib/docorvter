@@ -10,6 +10,7 @@ urlpatterns = [
     path('', index_view),
     path('api/', include('api.users.urls')),
     path('api/', include('api.files.urls')),
+    path('api/', include('api.converter.urls')),
 ]
 
 if settings.DEBUG:
