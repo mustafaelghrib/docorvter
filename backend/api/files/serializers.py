@@ -36,7 +36,7 @@ class FileSerializer(ModelSerializer):
             "updated_at"
         ]
 
-    def get_html_file(self, file):
+    def get_html_file(self, file: File) -> str:
         """
         Get the URL for a File object's html_file field as a hyperlink.
 
@@ -51,7 +51,7 @@ class FileSerializer(ModelSerializer):
         html_file = file.html_file.name.replace('backend/', '')
         return request.build_absolute_uri(html_file)
 
-    def get_pdf_file(self, file):
+    def get_pdf_file(self, file: File) -> str:
         """
         Get the URL for a File object's pdf_file field as a hyperlink.
 

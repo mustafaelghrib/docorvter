@@ -13,7 +13,7 @@ class OverwriteStorage(FileSystemStorage):
     returning the name, allowing the new file to overwrite the old one.
     """
 
-    def get_available_name(self, name, max_length=None):
+    def get_available_name(self, name: str, max_length=None) -> str:
         """
         Returns a filename that's available for new content to be written to.
 

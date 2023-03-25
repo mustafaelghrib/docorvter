@@ -1,5 +1,6 @@
 from rest_framework import views, status
 from rest_framework.response import Response
+from rest_framework.request import Request
 
 from .models import File
 from .serializers import FileSerializer
@@ -18,7 +19,7 @@ class FilesAPI(views.APIView):
     authentication_classes = [JWTAuthentication]
 
     @staticmethod
-    def get_files_list(request):
+    def get_files_list(request: Request) -> Response:
         """
         Retrieve a list of all files.
 
@@ -38,7 +39,7 @@ class FilesAPI(views.APIView):
         })
 
     @staticmethod
-    def delete_all_files():
+    def delete_all_files() -> Response:
         """
         Delete all files.
 
@@ -53,7 +54,7 @@ class FilesAPI(views.APIView):
             "message": "All files deleted successfully",
         })
 
-    def get(self, request):
+    def get(self, request: Request) -> Response:
         """
         Handle GET requests to retrieve a list of all files.
 
@@ -71,7 +72,7 @@ class FilesAPI(views.APIView):
             })
         return self.get_files_list(request)
 
-    def delete(self, request):
+    def delete(self, request: Request) -> Response:
         """
         Handle DELETE requests to delete all files.
 
@@ -98,7 +99,7 @@ class FileAPI(views.APIView):
     authentication_classes = [JWTAuthentication]
 
     @staticmethod
-    def get_file(request, file_id):
+    def get_file(request: Request, file_id: str) -> Response:
         """
         Get the details of a file.
 
@@ -125,7 +126,7 @@ class FileAPI(views.APIView):
         })
 
     @staticmethod
-    def delete_file(request, file_id):
+    def delete_file(file_id: str) -> Response:
         """
         Delete a file.
 
@@ -152,7 +153,7 @@ class FileAPI(views.APIView):
             "message": "File deleted successfully",
         })
 
-    def get(self, request, file_id):
+    def get(self, request: Request, file_id: str) -> Response:
         """
         Handler for GET requests to fetch a file.
 
@@ -171,7 +172,7 @@ class FileAPI(views.APIView):
             })
         return self.get_file(request, file_id)
 
-    def delete(self, request, file_id):
+    def delete(self, request: Request, file_id: str) -> Response:
         """
         Handler for DELETE requests to delete a file.
 
@@ -188,4 +189,4 @@ class FileAPI(views.APIView):
                 "status": status.HTTP_401_UNAUTHORIZED,
                 "message": "Access denied!",
             })
-        return self.delete_file(request, file_id)
+        return self.delete_file(file_id)
