@@ -42,7 +42,7 @@ class AuthUser(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
-    def set_password(self, raw_password):
+    def set_password(self, raw_password: str) -> None:
         """
         Set password for the user.
 
@@ -52,7 +52,7 @@ class AuthUser(models.Model):
         """
         self.password = make_password(raw_password)
 
-    def check_password(self, new_password):
+    def check_password(self, new_password: str) -> bool:
         """
         Check if the entered password is correct.
 
@@ -65,7 +65,7 @@ class AuthUser(models.Model):
         """
         return check_password(new_password, self.password)
 
-    def set_token(self, email):
+    def set_token(self, email: str) -> None:
         """
         Generate and set token for the user.
 

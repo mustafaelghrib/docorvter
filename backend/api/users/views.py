@@ -1,5 +1,6 @@
 from rest_framework import views, status
 from rest_framework.response import Response
+from rest_framework.request import Request
 
 from .models import AuthUser
 from .serializers import UserSerializer
@@ -13,7 +14,7 @@ class UserRegisterAPI(views.APIView):
 
     """
 
-    def post(self, request):
+    def post(self, request: Request) -> Response:
         """
         Handle POST requests for user registration.
 
@@ -73,7 +74,7 @@ class UserLoginAPI(views.APIView):
 
     """
 
-    def post(self, request):
+    def post(self, request: Request) -> Response:
         """
         Handles POST request for user login.
 

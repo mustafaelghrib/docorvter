@@ -33,7 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
-    def validate_password(self, password):
+    def validate_password(self, password: str) -> str:
         """
         Validate the entered password.
 

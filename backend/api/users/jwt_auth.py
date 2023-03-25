@@ -1,6 +1,8 @@
 import jwt
 from django.conf import settings
 from rest_framework import authentication, exceptions
+from rest_framework.request import Request
+from .models import AuthUser
 
 
 class JWTAuthentication(authentication.BaseAuthentication):
@@ -11,7 +13,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
 
     """
 
-    def authenticate(self, request):
+    def authenticate(self, request: Request) -> (AuthUser, None):
         """
         Authenticate user based on JWT token in request header.
 
@@ -40,7 +42,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
         return user, None
 
 
-def generate_token(email, key):
+def generate_token(email: str, key: str) -> str:
     """
     Generates a JSON Web Token (JWT) using the provided email and key.
 
@@ -61,7 +63,7 @@ def generate_token(email, key):
     return token
 
 
-def verify_token(token, key):
+def verify_token(token: str, key: str) -> dict:
     """
     Verifies a JSON Web Token (JWT) using the provided key and returns the decoded payload as a dictionary.
 
