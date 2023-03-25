@@ -8,20 +8,13 @@ from ..users.jwt_auth import JWTAuthentication
 
 
 class FilesAPI(views.APIView):
-    """
-    API endpoint for managing files.
-
-    Attributes:
-        authentication_classes (list):
-            List of authentication classes used for authenticating requests.
-    """
+    """API endpoint for managing files."""
 
     authentication_classes = [JWTAuthentication]
 
     @staticmethod
     def get_files_list(request: Request) -> Response:
-        """
-        Retrieve a list of all files.
+        """Retrieve a list of all files.
 
         Args:
             request: HTTP request object.
@@ -40,8 +33,7 @@ class FilesAPI(views.APIView):
 
     @staticmethod
     def delete_all_files() -> Response:
-        """
-        Delete all files.
+        """Delete all files.
 
         Returns:
             HTTP response indicating success or failure of the operation.
@@ -55,8 +47,7 @@ class FilesAPI(views.APIView):
         })
 
     def get(self, request: Request) -> Response:
-        """
-        Handle GET requests to retrieve a list of all files.
+        """Handle GET requests to retrieve a list of all files.
 
         Args:
             request: HTTP request object.
@@ -73,8 +64,7 @@ class FilesAPI(views.APIView):
         return self.get_files_list(request)
 
     def delete(self, request: Request) -> Response:
-        """
-        Handle DELETE requests to delete all files.
+        """Handle DELETE requests to delete all files.
 
         Args:
             request: HTTP request object.
@@ -92,16 +82,13 @@ class FilesAPI(views.APIView):
 
 
 class FileAPI(views.APIView):
-    """
-    View for fetching and deleting individual files.
-    """
+    """View for fetching and deleting individual files."""
 
     authentication_classes = [JWTAuthentication]
 
     @staticmethod
     def get_file(request: Request, file_id: str) -> Response:
-        """
-        Get the details of a file.
+        """Get the details of a file.
 
         Args:
             request: The HTTP request object.
@@ -127,8 +114,7 @@ class FileAPI(views.APIView):
 
     @staticmethod
     def delete_file(file_id: str) -> Response:
-        """
-        Delete a file.
+        """Delete a file.
 
         Args:
             file_id: The ID of the file to delete.
@@ -153,8 +139,7 @@ class FileAPI(views.APIView):
         })
 
     def get(self, request: Request, file_id: str) -> Response:
-        """
-        Handler for GET requests to fetch a file.
+        """Handler for GET requests to fetch a file.
 
         Args:
             request: The HTTP request object.
@@ -172,8 +157,7 @@ class FileAPI(views.APIView):
         return self.get_file(request, file_id)
 
     def delete(self, request: Request, file_id: str) -> Response:
-        """
-        Handler for DELETE requests to delete a file.
+        """Handler for DELETE requests to delete a file.
 
         Args:
             request: The HTTP request object.

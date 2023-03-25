@@ -6,26 +6,19 @@ from .models import AuthUser
 
 
 class JWTAuthentication(authentication.BaseAuthentication):
-    """
-    JWT Authentication Class.
-
-    This class implements JWT Authentication for Django REST Framework.
-
-    """
+    """Custom JWT Authentication Class."""
 
     def authenticate(self, request: Request) -> (AuthUser, None):
-        """
-        Authenticate user based on JWT token in request header.
+        """Authenticate user based on JWT token in request header.
 
         Args:
             request: The HTTP request object.
 
-        Returns:
-            A tuple of (user, None) if authentication succeeds, or None if it fails.
-
         Raises:
             AuthenticationFailed: If the JWT token is invalid or not present in the request header.
 
+        Returns:
+            A tuple of (user, None) if authentication succeeds, or None if it fails.
         """
 
         token = request.headers.get('Authorization')
@@ -43,8 +36,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
 
 
 def generate_token(email: str, key: str) -> str:
-    """
-    Generates a JSON Web Token (JWT) using the provided email and key.
+    """Generates a JSON Web Token (JWT) using the provided email and key.
 
     Args:
         email: The email address to include in the token's payload.
@@ -52,7 +44,6 @@ def generate_token(email: str, key: str) -> str:
 
     Returns:
         A string representation of the generated token.
-
     """
 
     token = jwt.encode(
@@ -64,19 +55,17 @@ def generate_token(email: str, key: str) -> str:
 
 
 def verify_token(token: str, key: str) -> dict:
-    """
-    Verifies a JSON Web Token (JWT) using the provided key and returns the decoded payload as a dictionary.
+    """Verifies a JSON Web Token (JWT) using the provided key.
 
     Args:
         token: The JWT to verify.
         key: The key to use for verifying the JWT.
 
-    Returns:
-        A dictionary representation of the decoded payload.
-
     Raises:
         jwt.InvalidTokenError: If the token cannot be verified or decoded.
 
+    Returns:
+        A dictionary representation of the decoded payload.
     """
     payload = jwt.decode(
         jwt=token,

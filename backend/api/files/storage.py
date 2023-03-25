@@ -5,8 +5,7 @@ from django.core.files.storage import FileSystemStorage
 
 
 class OverwriteStorage(FileSystemStorage):
-    """
-    Overrides the default storage system to allow overwriting of existing files.
+    """Overrides the default storage system to allow overwriting of existing files.
 
     This class inherits from Django's FileSystemStorage class and overrides the `get_available_name`
     method to check if a file with the same name already exists. If so, it deletes the old file before
@@ -14,12 +13,11 @@ class OverwriteStorage(FileSystemStorage):
     """
 
     def get_available_name(self, name: str, max_length=None) -> str:
-        """
-        Returns a filename that's available for new content to be written to.
+        """Returns a filename that's available for new content to be written to.
 
         If the file already exists, it is deleted to allow overwriting.
 
-        Parameters:
+        Args:
             name: The desired filename.
             max_length: The maximum length of the filename. Defaults to None.
 

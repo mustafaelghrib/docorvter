@@ -7,8 +7,7 @@ class Converter(ABC):
     """Abstract class for a document converter."""
 
     def convert(self, file: str, output: str) -> Document:
-        """
-        Converts a file to a desired format.
+        """Converts a file to a desired format.
 
         Args:
             file: The path to the file to be converted.
@@ -23,8 +22,7 @@ class Converter(ABC):
 
     @abstractmethod
     def _create_document(self, file: str, output: str) -> Document:
-        """
-        Creates a document object given a file and output path.
+        """Creates a document object given a file and output path.
 
         Args:
             file: The path to the file to be converted.

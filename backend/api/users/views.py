@@ -7,23 +7,16 @@ from .serializers import UserSerializer
 
 
 class UserRegisterAPI(views.APIView):
-    """
-    API View for user registration.
-
-    This view handles the registration of new users by accepting a POST request with user details.
-
-    """
+    """API View for user registration."""
 
     def post(self, request: Request) -> Response:
-        """
-        Handle POST requests for user registration.
+        """Handle POST requests for user registration.
 
         Args:
             request: The HTTP request object.
 
         Returns:
             The HTTP response object.
-
         """
 
         payload = request.data
@@ -67,16 +60,10 @@ class UserRegisterAPI(views.APIView):
 
 
 class UserLoginAPI(views.APIView):
-    """
-    API view for user login.
-
-    This view handles the login of users by accepting a POST request with user details.
-
-    """
+    """API view for user login."""
 
     def post(self, request: Request) -> Response:
-        """
-        Handles POST request for user login.
+        """Handles POST request for user login.
 
         Args:
             request: The HTTP request object.

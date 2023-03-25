@@ -23,30 +23,26 @@ class FileSerializer(ModelSerializer):
         ]
 
     def get_html_file(self, file: File) -> str:
-        """
-        Get the URL for a File object's html_file field as a hyperlink.
+        """Get the URL for a File object's html_file field as a hyperlink.
 
         Args:
             file: A File object.
 
         Returns:
             The URL for the File object's html_file field as a hyperlink.
-
         """
         request = self.context.get('request')
         html_file = file.html_file.name.replace('backend/', '')
         return request.build_absolute_uri(html_file)
 
     def get_pdf_file(self, file: File) -> str:
-        """
-        Get the URL for a File object's pdf_file field as a hyperlink.
+        """Get the URL for a File object's pdf_file field as a hyperlink.
 
         Args:
             file: A File object.
 
         Returns:
             The URL for the File object's pdf_file field as a hyperlink.
-
         """
         request = self.context.get('request')
         pdf_file = file.pdf_file.name.replace('backend/', '')

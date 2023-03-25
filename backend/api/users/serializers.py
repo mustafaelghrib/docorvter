@@ -4,25 +4,12 @@ from .models import AuthUser
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """
-    Serializer for the AuthUser model.
-
-    Attributes:
-        password: Password of the user. Write-only field.
-
-    """
+    """Serializer for the AuthUser model."""
 
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        """
-        Metaclass for UserSerializer.
-
-        Attributes:
-            model: Model used for the serializer.
-            fields: List of fields to be serialized.
-
-        """
+        """Metaclass for UserSerializer."""
         model = AuthUser
         fields = [
             "user_id",
@@ -34,8 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
         ]
 
     def validate_password(self, password: str) -> str:
-        """
-        Validate the entered password.
+        """Validate the entered password.
 
         Args:
             password: The password entered by the user.
