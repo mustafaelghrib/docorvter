@@ -21,6 +21,16 @@ class FilesAPI(views.APIView):
             "file": FileSerializer(files, many=True, context={"request": request}).data,
         })
 
+    @staticmethod
+    def delete_all_files():
+
+        File.objects.all().delete()
+
+        return Response({
+            "status": status.HTTP_200_OK,
+            "message": "All files deleted successfully",
+        })
+
     def get(self, request):
         if not request.user:
             return Response({
@@ -28,6 +38,14 @@ class FilesAPI(views.APIView):
                 "message": "Access denied!",
             })
         return self.get_files_list(request)
+
+    def delete(self, request):
+        if not request.user:
+            return Response({
+                "status": status.HTTP_401_UNAUTHORIZED,
+                "message": "Access denied!",
+            })
+        return self.delete_all_files()
 
 
 class FileAPI(views.APIView):
