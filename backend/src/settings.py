@@ -1,22 +1,23 @@
 import os
 from pathlib import Path
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default="change_me_with_strong_secret_key")
+SECRET_KEY = config('DJANGO_SECRET_KEY', default="change_me_with_strong_secret_key")
 
-DEBUG = os.environ.get("DJANGO_DEBUG", default=True)
+DEBUG = config("DJANGO_DEBUG", default=True)
 
 ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("POSTGRES_DB"),
-        'USER': os.environ.get("POSTGRES_USER"),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST"),
-        'PORT': os.environ.get("POSTGRES_PORT"),
+        'NAME': config("POSTGRES_DB"),
+        'USER': config("POSTGRES_USER"),
+        'PASSWORD': config("POSTGRES_PASSWORD"),
+        'HOST': config("POSTGRES_HOST"),
+        'PORT': config("POSTGRES_PORT"),
     }
 }
 
@@ -95,8 +96,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, '.static')
 MEDIA_URL = '/.media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '.media')
 
-CELERY_BROKER_URL = 'amqp://rabbitmq'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_BROKER_URL = config("RABBITMQ_URL")
+CELERY_RESULT_BACKEND = config("REDIS_URL")
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
