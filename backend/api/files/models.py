@@ -6,7 +6,28 @@ from .storage import OverwriteStorage
 
 
 class File(models.Model):
+    """
+    A model representing an uploaded file and its converted version.
+
+    Attributes:
+        file_id (UUIDField): unique ID of the file
+        html_file (FileField): uploaded HTML file
+        pdf_file (FileField): converted PDF file
+        uploaded_at (DateTimeField): datetime of the file upload
+        converted_at (DateTimeField): datetime of the file conversion
+        created_at (DateTimeField): datetime of the file creation
+        updated_at (DateTimeField): datetime of the last file update
+
+    """
+
     class Meta:
+        """
+        Metaclass for File model.
+
+        Attributes:
+            db_table (str): Name of the database table for the File model.
+
+        """
         db_table = "api_files"
 
     file_id = models.UUIDField(primary_key=True, default=uuid4, editable=False, db_index=True)
