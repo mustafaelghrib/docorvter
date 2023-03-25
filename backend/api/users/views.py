@@ -6,8 +6,24 @@ from .serializers import UserSerializer
 
 
 class UserRegisterAPI(views.APIView):
+    """
+    API View for user registration.
+
+    This view handles the registration of new users by accepting a POST request with user details.
+
+    """
 
     def post(self, request):
+        """
+        Handle POST requests for user registration.
+
+        Args:
+            request (rest_framework.request.Request): The HTTP request object.
+
+        Returns:
+            rest_framework.response.Response: The HTTP response object.
+
+        """
 
         payload = request.data
 
@@ -50,8 +66,23 @@ class UserRegisterAPI(views.APIView):
 
 
 class UserLoginAPI(views.APIView):
+    """
+    API view for user login.
+
+    This view handles the login of users by accepting a POST request with user details.
+
+    """
 
     def post(self, request):
+        """
+        Handles POST request for user login.
+
+        Args:
+            request (rest_framework.request.Request): The HTTP request object.
+
+        Returns:
+            rest_framework.response.Response: The HTTP response object.
+        """
 
         payload = request.data
 
@@ -59,7 +90,7 @@ class UserLoginAPI(views.APIView):
             return Response({
                 "status": status.HTTP_400_BAD_REQUEST,
                 "message": "Please correct the errors",
-                "email_error": "Username is required",
+                "email_error": "Email is required",
             })
 
         if "password" not in payload or payload["password"] == "":
