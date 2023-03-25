@@ -24,3 +24,51 @@ services:
       - "5432:5432"
     volumes:
       - ../.volumes/postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.9-management-alpine
+    container_name: backend_rabbitmq
+    env_file: .env
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    volumes:
+      - ../.volumes/rabbitmq_data:/kilimanjaro/rabbitmq_data
+
+  redis:
+    image: redis:6-alpine
+    container_name: backend_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ../.volumes/redis_data:/data
+
+  celery:
+    image: backend
+    container_name: backend_celery
+    build: .
+    restart: always
+    command: /opt/venv/bin/celery -A src.celery worker -l info
+    env_file: .env
+    volumes:
+      - .:/backend
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+
+  flower:
+    image: backend
+    container_name: backend_flower
+    build: .
+    restart: always
+    command: /opt/venv/bin/celery -A src.celery flower
+    env_file: .env
+    ports:
+      - "5555:5555"
+    volumes:
+      - .:/backend
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
