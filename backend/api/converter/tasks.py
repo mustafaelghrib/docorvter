@@ -11,6 +11,15 @@ from ..files.models import File
 
 @shared_task
 def convert_html_file(file_id):
+    """
+    Converts an HTML file to PDF asynchronously using the HtmlConverter class.
+
+    Args:
+    file_id (UUID): The ID of the File object to be converted.
+
+    Returns:
+    None.
+    """
 
     file = File.objects.get(file_id=file_id)
 
