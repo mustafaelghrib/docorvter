@@ -6,7 +6,7 @@ from ..document.document import Document
 class Converter(ABC):
     """Abstract class for a document converter."""
 
-    def convert(self, file, output):
+    def convert(self, file: str, output: str) -> Document:
         """
         Converts a file to a desired format.
 
@@ -22,7 +22,7 @@ class Converter(ABC):
         return document
 
     @abstractmethod
-    def _create_document(self, file, output):
+    def _create_document(self, file: str, output: str) -> Document:
         """
         Creates a document object given a file and output path.
 

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from rest_framework.request import Request
 from rest_framework import views, status
 from rest_framework.response import Response
 
@@ -27,7 +28,7 @@ class HtmlConvertAPI(views.APIView):
     authentication_classes = [JWTAuthentication]
 
     @staticmethod
-    def convert_html_file(request):
+    def convert_html_file(request: Request) -> Response:
         """Static method to perform HTML to PDF conversion and return a response.
 
         Args:
@@ -53,7 +54,7 @@ class HtmlConvertAPI(views.APIView):
             "message": "We are converting your file! Wait a moment!",
         })
 
-    def post(self, request):
+    def post(self, request: Request) -> Response:
         """Handles POST requests to convert HTML file to PDF and returns the response.
 
         Args:

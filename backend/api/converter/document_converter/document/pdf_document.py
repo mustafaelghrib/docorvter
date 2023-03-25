@@ -11,9 +11,9 @@ class PdfDocument(Document):
             Converts the source file to a PDF document and saves it to the output file using the pdfkit library.
     """
 
-    def __init__(self, file, output):
+    def __init__(self, file: str, output: str) -> None:
         super().__init__(file, output)
 
-    def convert_file(self):
+    def convert_file(self) -> None:
         options = {'encoding': 'UTF-8'}
         pdfkit.from_file(self._file, self._output, options=options)

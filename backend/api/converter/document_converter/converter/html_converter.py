@@ -1,4 +1,5 @@
 from .converter import Converter
+from ..document.document import Document
 from ..document.pdf_document import PdfDocument
 
 
@@ -7,7 +8,7 @@ class HtmlConverter(Converter):
     A concrete class inheriting from Converter. This class is used to convert HTML files to PDF files.
     """
 
-    def _create_document(self, file, output):
+    def _create_document(self, file: str, output: str) -> Document:
         """
         Abstract method implemented by HtmlConverter. Creates a PdfDocument object with input HTML file
         and output PDF file.
