@@ -32,11 +32,11 @@ class File(models.Model):
 
     file_id = models.UUIDField(primary_key=True, default=uuid4, editable=False, db_index=True)
 
-    html_file = models.FileField(upload_to="html_files/", storage=OverwriteStorage(), null=True)
-    pdf_file = models.FileField(upload_to="pdf_files/", storage=OverwriteStorage(), null=True)
+    html_file = models.FileField(upload_to="html_files/", max_length=255, storage=OverwriteStorage(), null=True)
+    pdf_file = models.FileField(upload_to="pdf_files/", max_length=255, storage=OverwriteStorage(), null=True)
 
-    uploaded_at = models.DateTimeField(null=True)
-    converted_at = models.DateTimeField(null=True)
+    uploaded_at = models.DateTimeField(max_length=255, null=True)
+    converted_at = models.DateTimeField(max_length=255, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
