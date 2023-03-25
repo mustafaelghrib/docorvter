@@ -12,13 +12,13 @@ class AuthUser(models.Model):
     Model for authenticated users.
 
     Attributes:
-        user_id (UUIDField): Primary key for the user model.
-        email (EmailField): Email of the user.
-        username (CharField): Username of the user.
-        password (CharField): Password of the user.
-        token (CharField): Token generated for the user.
-        created_at (DateTimeField): Date and time when the user model was created.
-        updated_at (DateTimeField): Date and time when the user model was last updated.
+        user_id: Primary key for the user model.
+        email: Email of the user.
+        username: Username of the user.
+        password: Password of the user.
+        token: Token generated for the user.
+        created_at: Date and time when the user model was created.
+        updated_at: Date and time when the user model was last updated.
 
     """
 
@@ -27,7 +27,7 @@ class AuthUser(models.Model):
         Metaclass for AuthUser model.
 
         Attributes:
-            db_table (str): Name of the database table for the AuthUser model.
+            db_table: Name of the database table for the AuthUser model.
 
         """
         db_table = "api_auth_users"
@@ -47,7 +47,7 @@ class AuthUser(models.Model):
         Set password for the user.
 
         Args:
-            raw_password (str): The raw password entered by the user.
+            raw_password: The raw password entered by the user.
 
         """
         self.password = make_password(raw_password)
@@ -57,10 +57,10 @@ class AuthUser(models.Model):
         Check if the entered password is correct.
 
         Args:
-            new_password (str): The new password entered by the user.
+            new_password: The new password entered by the user.
 
         Returns:
-            bool: True if the password is correct, else False.
+            True if the password is correct, else False.
 
         """
         return check_password(new_password, self.password)
@@ -70,7 +70,7 @@ class AuthUser(models.Model):
         Generate and set token for the user.
 
         Args:
-            email (str): Email of the user.
+            email: Email of the user.
 
         """
         self.token = generate_token(email, settings.SECRET_KEY)

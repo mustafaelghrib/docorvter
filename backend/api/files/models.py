@@ -10,13 +10,13 @@ class File(models.Model):
     A model representing an uploaded file and its converted version.
 
     Attributes:
-        file_id (UUIDField): unique ID of the file
-        html_file (FileField): uploaded HTML file
-        pdf_file (FileField): converted PDF file
-        uploaded_at (DateTimeField): datetime of the file upload
-        converted_at (DateTimeField): datetime of the file conversion
-        created_at (DateTimeField): datetime of the file creation
-        updated_at (DateTimeField): datetime of the last file update
+        file_id: unique ID of the file
+        html_file: uploaded HTML file
+        pdf_file: converted PDF file
+        uploaded_at: datetime of the file upload
+        converted_at: datetime of the file conversion
+        created_at: datetime of the file creation
+        updated_at: datetime of the last file update
 
     """
 
@@ -25,7 +25,7 @@ class File(models.Model):
         Metaclass for File model.
 
         Attributes:
-            db_table (str): Name of the database table for the File model.
+            db_table: Name of the database table for the File model.
 
         """
         db_table = "api_files"

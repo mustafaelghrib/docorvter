@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     Serializer for the AuthUser model.
 
     Attributes:
-        password (CharField): Password of the user. Write-only field.
+        password: Password of the user. Write-only field.
 
     """
 
@@ -19,8 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
         Metaclass for UserSerializer.
 
         Attributes:
-            model (AuthUser): Model used for the serializer.
-            fields (list): List of fields to be serialized.
+            model: Model used for the serializer.
+            fields: List of fields to be serialized.
 
         """
         model = AuthUser
@@ -38,13 +38,13 @@ class UserSerializer(serializers.ModelSerializer):
         Validate the entered password.
 
         Args:
-            password (str): The password entered by the user.
+            password: The password entered by the user.
 
         Raises:
             serializers.ValidationError: If the password is less than 8 characters.
 
         Returns:
-            str: The validated password.
+            The validated password.
 
         """
         if len(password) < 8:

@@ -11,8 +11,8 @@ class Converter(ABC):
         Converts a file to a desired format.
 
         Args:
-            file (str): The path to the file to be converted.
-            output (str): The desired output format.
+            file: The path to the file to be converted.
+            output: The desired output format.
 
         Returns:
             A document object.
@@ -27,8 +27,8 @@ class Converter(ABC):
         Creates a document object given a file and output path.
 
         Args:
-            file (str): The path to the file to be converted.
-            output (str): The desired path of the converted file.
+            file: The path to the file to be converted.
+            output: The desired path of the converted file.
 
         Returns:
             A document object.

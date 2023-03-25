@@ -18,10 +18,10 @@ class JWTAuthentication(authentication.BaseAuthentication):
         Authenticate user based on JWT token in request header.
 
         Args:
-            request (rest_framework.request.Request): The HTTP request object.
+            request: The HTTP request object.
 
         Returns:
-            Tuple[AuthUser, None]: A tuple of (user, None) if authentication succeeds, or None if it fails.
+            A tuple of (user, None) if authentication succeeds, or None if it fails.
 
         Raises:
             AuthenticationFailed: If the JWT token is invalid or not present in the request header.
@@ -47,11 +47,11 @@ def generate_token(email: str, key: str) -> str:
     Generates a JSON Web Token (JWT) using the provided email and key.
 
     Args:
-        email (str): The email address to include in the token's payload.
-        key (str): The key to use for encoding the token.
+        email: The email address to include in the token's payload.
+        key: The key to use for encoding the token.
 
     Returns:
-        str: A string representation of the generated token.
+        A string representation of the generated token.
 
     """
 
@@ -68,11 +68,11 @@ def verify_token(token: str, key: str) -> dict:
     Verifies a JSON Web Token (JWT) using the provided key and returns the decoded payload as a dictionary.
 
     Args:
-        token (str): The JWT to verify.
-        key (str): The key to use for verifying the JWT.
+        token: The JWT to verify.
+        key: The key to use for verifying the JWT.
 
     Returns:
-        dict: A dictionary representation of the decoded payload.
+        A dictionary representation of the decoded payload.
 
     Raises:
         jwt.InvalidTokenError: If the token cannot be verified or decoded.

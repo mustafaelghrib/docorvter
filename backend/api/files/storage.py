@@ -20,11 +20,11 @@ class OverwriteStorage(FileSystemStorage):
         If the file already exists, it is deleted to allow overwriting.
 
         Parameters:
-            name (str): The desired filename.
-            max_length (int, optional): The maximum length of the filename. Defaults to None.
+            name: The desired filename.
+            max_length: The maximum length of the filename. Defaults to None.
 
         Returns:
-            str: The new filename that's available for use.
+            The new filename that's available for use.
         """
         if self.exists(name):
             os.remove(os.path.join(settings.MEDIA_ROOT, name))

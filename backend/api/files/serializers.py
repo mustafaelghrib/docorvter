@@ -4,27 +4,13 @@ from .models import File
 
 
 class FileSerializer(ModelSerializer):
-    """
-    Serializer for File model.
-
-    Provides serialized representations of a File object's fields.
-
-    html_file: SerializerMethodField() that represented as hyperlinks instead of raw URLs.
-    pdf_file: SerializerMethodField() that represented as hyperlinks instead of raw URLs.
-    """
+    """Serializer for File model."""
 
     html_file = SerializerMethodField()
     pdf_file = SerializerMethodField()
 
     class Meta:
-        """
-        Metaclass for FileSerializer.
-
-        Attributes:
-            model (File): Model used for the serializer.
-            fields (list): List of fields to be serialized.
-
-        """
+        """Metaclass for FileSerializer."""
         model = File
         fields = [
             "file_id",
@@ -41,10 +27,10 @@ class FileSerializer(ModelSerializer):
         Get the URL for a File object's html_file field as a hyperlink.
 
         Args:
-            file (File): A File object.
+            file: A File object.
 
         Returns:
-            str: The URL for the File object's html_file field as a hyperlink.
+            The URL for the File object's html_file field as a hyperlink.
 
         """
         request = self.context.get('request')
@@ -56,10 +42,10 @@ class FileSerializer(ModelSerializer):
         Get the URL for a File object's pdf_file field as a hyperlink.
 
         Args:
-            file (File): A File object.
+            file: A File object.
 
         Returns:
-            str: The URL for the File object's pdf_file field as a hyperlink.
+            The URL for the File object's pdf_file field as a hyperlink.
 
         """
         request = self.context.get('request')

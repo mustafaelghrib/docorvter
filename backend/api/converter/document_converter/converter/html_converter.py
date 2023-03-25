@@ -14,11 +14,11 @@ class HtmlConverter(Converter):
         and output PDF file.
 
         Args:
-            file (str): The path to the HTML file to be converted.
-            output (str): The path where the output PDF file should be saved.
+            file: The path to the HTML file to be converted.
+            output: The path where the output PDF file should be saved.
 
         Returns:
-            PdfDocument: A PdfDocument object with input HTML file and output PDF file.
+            A PdfDocument object with input HTML file and output PDF file.
         """
 
         return PdfDocument(file, output)

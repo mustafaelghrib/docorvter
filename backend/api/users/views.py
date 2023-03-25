@@ -19,10 +19,10 @@ class UserRegisterAPI(views.APIView):
         Handle POST requests for user registration.
 
         Args:
-            request (rest_framework.request.Request): The HTTP request object.
+            request: The HTTP request object.
 
         Returns:
-            rest_framework.response.Response: The HTTP response object.
+            The HTTP response object.
 
         """
 
@@ -79,10 +79,10 @@ class UserLoginAPI(views.APIView):
         Handles POST request for user login.
 
         Args:
-            request (rest_framework.request.Request): The HTTP request object.
+            request: The HTTP request object.
 
         Returns:
-            rest_framework.response.Response: The HTTP response object.
+            The HTTP response object.
         """
 
         payload = request.data

@@ -24,10 +24,10 @@ class FilesAPI(views.APIView):
         Retrieve a list of all files.
 
         Args:
-            request (rest_framework.request.Request): HTTP request object.
+            request: HTTP request object.
 
         Returns:
-            Response (rest_framework.response.Response): HTTP response containing a list of all files.
+            HTTP response containing a list of all files.
         """
 
         files = File.objects.all()
@@ -44,7 +44,7 @@ class FilesAPI(views.APIView):
         Delete all files.
 
         Returns:
-            Response (rest_framework.response.Response): HTTP response indicating success or failure of the operation.
+            HTTP response indicating success or failure of the operation.
         """
 
         File.objects.all().delete()
@@ -59,10 +59,10 @@ class FilesAPI(views.APIView):
         Handle GET requests to retrieve a list of all files.
 
         Args:
-            request (rest_framework.request.Request): HTTP request object.
+            request: HTTP request object.
 
         Returns:
-            Response (rest_framework.response.Response): HTTP response containing a list of all files.
+            HTTP response containing a list of all files.
         """
 
         if not request.user:
@@ -77,10 +77,10 @@ class FilesAPI(views.APIView):
         Handle DELETE requests to delete all files.
 
         Args:
-            request (rest_framework.request.Request): HTTP request object.
+            request: HTTP request object.
 
         Returns:
-            Response (rest_framework.response.Response): HTTP response indicating success or failure of the operation.
+            HTTP response indicating success or failure of the operation.
         """
 
         if not request.user:
@@ -104,11 +104,11 @@ class FileAPI(views.APIView):
         Get the details of a file.
 
         Args:
-            request (rest_framework.request.Request): The HTTP request object.
-            file_id (UUID): The ID of the file to fetch.
+            request: The HTTP request object.
+            file_id: The ID of the file to fetch.
 
         Returns:
-            Response (rest_framework.response.Response): The response containing the file details.
+            The response containing the file details.
         """
 
         file = File.objects.filter(file_id=file_id).first()
@@ -131,11 +131,10 @@ class FileAPI(views.APIView):
         Delete a file.
 
         Args:
-            request (rest_framework.request.Request): The HTTP request object.
-            file_id (UUID): The ID of the file to delete.
+            file_id: The ID of the file to delete.
 
         Returns:
-            Response (rest_framework.response.Response): The response indicating whether the file was successfully deleted.
+            The response indicating whether the file was successfully deleted.
         """
 
         file = File.objects.filter(file_id=file_id).first()
@@ -158,11 +157,11 @@ class FileAPI(views.APIView):
         Handler for GET requests to fetch a file.
 
         Args:
-            request (rest_framework.request.Request): The HTTP request object.
-            file_id (UUID): The ID of the file to fetch.
+            request: The HTTP request object.
+            file_id: The ID of the file to fetch.
 
         Returns:
-            Response (rest_framework.response.Response): The response containing the file details.
+            The response containing the file details.
         """
 
         if not request.user:
@@ -177,11 +176,11 @@ class FileAPI(views.APIView):
         Handler for DELETE requests to delete a file.
 
         Args:
-            request (rest_framework.request.Request): The HTTP request object.
-            file_id (UUID): The ID of the file to delete.
+            request: The HTTP request object.
+            file_id: The ID of the file to delete.
 
         Returns:
-            Response (rest_framework.response.Response): The response indicating whether the file was successfully deleted.
+            The response indicating whether the file was successfully deleted.
         """
 
         if not request.user:
