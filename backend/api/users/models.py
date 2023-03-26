@@ -1,3 +1,11 @@
+"""
+A module that contains models of the users package.
+
+Classes:
+    - [`AuthUser`][backend.api.users.models.AuthUser]:
+    A class that creating user model.
+"""
+
 from uuid import uuid4
 
 from django.conf import settings
@@ -8,21 +16,44 @@ from .jwt_auth import generate_token
 
 
 class AuthUser(models.Model):
-    """Model for authenticated users."""
+    """Model for authenticated users.
+
+    Attributes:
+        user_id: id of the user
+        email: the email of the user
+        username: the username of the user
+        password: the password of the user
+        token: the token of the user
+        created_at: the datetime when user is created
+        updated_at: the updated datatime when updating the user
+
+    Methods:
+        - [`set_password(raw_password)`][backend.api.users.models.AuthUser.set_password]:
+        A method to set user password to hash password
+        - [`check_password(new_password)`][backend.api.users.models.AuthUser.check_password]:
+        A method to check if the password is correct or not
+        - [`set_token(email)`][backend.api.users.models.AuthUser.set_token]:
+        A method to set user token
+    """
 
     class Meta:
-        """Metaclass for AuthUser model."""
-        db_table = "api_auth_users"
+        """Metaclass for AuthUser model.
 
-    user_id = models.UUIDField(primary_key=True, default=uuid4, editable=False, db_index=True)
+        Attributes:
+            db_table: the table name
+        """
 
-    email = models.EmailField(max_length=255, db_index=True, null=False, blank=False, unique=True)
-    username = models.CharField(max_length=50, db_index=True, null=False, blank=False, unique=True)
-    password = models.CharField(max_length=255, null=False, blank=False)
-    token = models.CharField(max_length=255, null=True, blank=True)
+        db_table: str = "api_auth_users"
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    user_id: models.UUIDField = models.UUIDField(primary_key=True, default=uuid4, editable=False, db_index=True)
+
+    email: models.EmailField = models.EmailField(max_length=255, db_index=True, null=False, blank=False, unique=True)
+    username: models.CharField = models.CharField(max_length=50, db_index=True, null=False, blank=False, unique=True)
+    password: models.CharField = models.CharField(max_length=255, null=False, blank=False)
+    token: models.CharField = models.CharField(max_length=255, null=True, blank=True)
+
+    created_at: models.DateTimeField = models.DateTimeField(auto_now_add=True)
+    updated_at: models.DateTimeField = models.DateTimeField(auto_now=True, null=True)
 
     def set_password(self, raw_password: str) -> None:
         """Set password for the user.

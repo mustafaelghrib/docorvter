@@ -1,3 +1,13 @@
+"""
+This module contains the views of the users package.
+
+Classes:
+    - [`UserRegisterAPI`][backend.api.users.views.UserRegisterAPI]:
+    A class that contains post endpoint for user registration
+    - [`UserLoginAPI`][backend.api.users.views.UserLoginAPI]:
+    A class that contains post endpoint for user login
+"""
+
 from rest_framework import views, status
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -7,7 +17,12 @@ from .serializers import UserSerializer
 
 
 class UserRegisterAPI(views.APIView):
-    """API View for user registration."""
+    """API View for user registration.
+
+    Methods:
+        - [`post`][backend.api.users.views.UserRegisterAPI.post]:
+        A method for making POST request to register user
+    """
 
     def post(self, request: Request) -> Response:
         """Handle POST requests for user registration.
@@ -18,7 +33,6 @@ class UserRegisterAPI(views.APIView):
         Returns:
             The HTTP response object.
         """
-
         payload = request.data
 
         user_serializer = UserSerializer(data=payload)
@@ -60,10 +74,15 @@ class UserRegisterAPI(views.APIView):
 
 
 class UserLoginAPI(views.APIView):
-    """API view for user login."""
+    """API view for user login.
+
+    Methods:
+        - [`post`][backend.api.users.views.UserLoginAPI.post]:
+        A method for making POST request for user login
+    """
 
     def post(self, request: Request) -> Response:
-        """Handles POST request for user login.
+        """Handle POST request for user login.
 
         Args:
             request: The HTTP request object.
@@ -71,7 +90,6 @@ class UserLoginAPI(views.APIView):
         Returns:
             The HTTP response object.
         """
-
         payload = request.data
 
         if "email" not in payload or payload["email"] == "":

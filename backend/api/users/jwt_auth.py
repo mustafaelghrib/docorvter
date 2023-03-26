@@ -1,3 +1,17 @@
+"""
+A module that contains the custom JWT Auth.
+
+Classes:
+    - [`JWTAuthentication`][backend.api.users.jwt_auth.JWTAuthentication]:
+        A class that handle custom JWT Auth.
+
+Functions:
+    - [`generate_token(email, key)`][backend.api.users.jwt_auth.generate_token]:
+     A function that generate JWT token.
+    - [`verify_token(token, key)`][backend.api.users.jwt_auth.verify_token]:
+     A function that verify JWT token.
+"""
+
 import jwt
 from django.conf import settings
 from rest_framework import authentication, exceptions
@@ -6,7 +20,12 @@ from .models import AuthUser
 
 
 class JWTAuthentication(authentication.BaseAuthentication):
-    """Custom JWT Authentication Class."""
+    """Custom JWT Authentication Class.
+
+    Methods:
+        - authenticate(request):
+            A function that handle JWT authentication.
+    """
 
     def authenticate(self, request: Request) -> (AuthUser, None):
         """Authenticate user based on JWT token in request header.
@@ -20,7 +39,6 @@ class JWTAuthentication(authentication.BaseAuthentication):
         Returns:
             A tuple of (user, None) if authentication succeeds, or None if it fails.
         """
-
         token = request.headers.get('Authorization')
         if token:
             try:
@@ -36,7 +54,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
 
 
 def generate_token(email: str, key: str) -> str:
-    """Generates a JSON Web Token (JWT) using the provided email and key.
+    """Generate a JSON Web Token (JWT) using the provided email and key.
 
     Args:
         email: The email address to include in the token's payload.
@@ -45,7 +63,6 @@ def generate_token(email: str, key: str) -> str:
     Returns:
         A string representation of the generated token.
     """
-
     token = jwt.encode(
         payload={"email": email},
         key=key,
@@ -55,7 +72,7 @@ def generate_token(email: str, key: str) -> str:
 
 
 def verify_token(token: str, key: str) -> dict:
-    """Verifies a JSON Web Token (JWT) using the provided key.
+    """Verify a JSON Web Token (JWT) using the provided key.
 
     Args:
         token: The JWT to verify.
