@@ -1,3 +1,10 @@
+"""
+A module that contains the converter views.
+
+Classes:
+    - `HtmlConvertAPI`: A class that hold the endpoint of converting html files.
+"""
+
 from datetime import datetime
 
 from rest_framework.request import Request
@@ -10,26 +17,22 @@ from ..users.jwt_auth import JWTAuthentication
 
 
 class HtmlConvertAPI(views.APIView):
-    """Converts an HTML file to PDF asynchronously and returns the file ID.
+    """API View for converting an HTML file to PDF asynchronously.
 
     This class handles POST requests to convert an HTML file to a PDF file
     using Celery worker to process the conversion task asynchronously.
 
     Attributes:
-        authentication_classes: List of authentication classes. Default is JWTAuthentication.
+        `authentication_classes`: List of authentication classes. Default is JWTAuthentication.
 
     Methods:
-        convert_html_file(request):
-            Static method that performs the conversion and returns a response.
-        post(request):
-            Handles POST requests and returns the response.
+        - `post(request)`: Handles POST requests and performs the HTML to PDF conversion.
     """
 
     authentication_classes = [JWTAuthentication]
 
-    @staticmethod
-    def convert_html_file(request: Request) -> Response:
-        """Static method to perform HTML to PDF conversion and return a response.
+    def post(self, request: Request) -> Response:
+        """Perform HTML to PDF conversion and return a response.
 
         Args:
             request: HTTP request containing the HTML file to convert.
@@ -37,6 +40,11 @@ class HtmlConvertAPI(views.APIView):
         Returns:
             Response with status code and message.
         """
+        if not request.user:
+            return Response({
+                "status": status.HTTP_401_UNAUTHORIZED,
+                "message": "Access denied!",
+            })
 
         if 'html_file' not in request.data:
             return Response({
@@ -54,18 +62,3 @@ class HtmlConvertAPI(views.APIView):
             "message": "We are converting your file! Wait a moment!",
         })
 
-    def post(self, request: Request) -> Response:
-        """Handles POST requests to convert HTML file to PDF and returns the response.
-
-        Args:
-            request: HTTP request containing the HTML file to convert.
-
-        Returns:
-            Response with status code and message.
-        """
-        if not request.user:
-            return Response({
-                "status": status.HTTP_401_UNAUTHORIZED,
-                "message": "Access denied!",
-            })
-        return self.convert_html_file(request)

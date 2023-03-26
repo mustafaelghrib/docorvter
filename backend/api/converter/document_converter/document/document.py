@@ -1,8 +1,24 @@
+"""
+This module contains class for the document.
+
+Classes:
+    - `Document`: An interface for the document object.
+"""
+
 from abc import ABC, abstractmethod
 
 
 class Document(ABC):
-    """Abstract base class for document conversion."""
+    """
+    Abstract base class for the document.
+
+    Attributes:
+        _file: The file source to be converted.
+        _output: The output path of the converted file.
+
+    Methods:
+        - `convert_file()`: Abstract method for converting file.
+    """
 
     def __init__(self, file: str, output: str) -> None:
         """Initialize the Document object.
