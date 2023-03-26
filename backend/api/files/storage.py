@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from typing import Optional
 
 
 class OverwriteStorage(FileSystemStorage):
@@ -12,7 +13,7 @@ class OverwriteStorage(FileSystemStorage):
     returning the name, allowing the new file to overwrite the old one.
     """
 
-    def get_available_name(self, name: str, max_length=None) -> str:
+    def get_available_name(self, name: str, max_length: Optional[int, None] = None) -> str:
         """Returns a filename that's available for new content to be written to.
 
         If the file already exists, it is deleted to allow overwriting.

@@ -1,19 +1,35 @@
+"""
+This module contains the views of the files package.
+
+Classes:
+    - `FilesAPI`: A class that handles the files endpoints
+    - `FileAPI`: A class that handle the file details
+"""
+
 from rest_framework import views, status
 from rest_framework.response import Response
 from rest_framework.request import Request
+from rest_framework.authentication import BaseAuthentication
 
 from .models import File
 from .serializers import FileSerializer
 from ..users.jwt_auth import JWTAuthentication
 
 
-class FilesAPI(views.APIView):
-    """API endpoint for managing files."""
+class FileListAPI(views.APIView):
+    """API endpoint for managing files.
+
+    Attributes:
+        `authentication_classes`: List of authentication classes. Default is JWTAuthentication.
+
+    Methods:
+        - `get(request)`: Handles GET requests to get list of files.
+        - `delete(request)`: Handles DELETE requests to delete all files.
+    """
 
     authentication_classes = [JWTAuthentication]
 
-    @staticmethod
-    def get_files_list(request: Request) -> Response:
+    def get(self, request: Request) -> Response:
         """Retrieve a list of all files.
 
         Args:
@@ -22,6 +38,11 @@ class FilesAPI(views.APIView):
         Returns:
             HTTP response containing a list of all files.
         """
+        if not request.user:
+            return Response({
+                "status": status.HTTP_401_UNAUTHORIZED,
+                "message": "Access denied!",
+            })
 
         files = File.objects.all()
 
@@ -31,13 +52,20 @@ class FilesAPI(views.APIView):
             "file": FileSerializer(files, many=True, context={"request": request}).data,
         })
 
-    @staticmethod
-    def delete_all_files() -> Response:
+    def delete(self, request: Request) -> Response:
         """Delete all files.
 
+        Args:
+            request: HTTP request object.
+
         Returns:
-            HTTP response indicating success or failure of the operation.
+            HTTP response with message ans status code.
         """
+        if not request.user:
+            return Response({
+                "status": status.HTTP_401_UNAUTHORIZED,
+                "message": "Access denied!",
+            })
 
         File.objects.all().delete()
 
@@ -46,48 +74,21 @@ class FilesAPI(views.APIView):
             "message": "All files deleted successfully",
         })
 
-    def get(self, request: Request) -> Response:
-        """Handle GET requests to retrieve a list of all files.
 
-        Args:
-            request: HTTP request object.
+class FileDetailAPI(views.APIView):
+    """View for fetching and deleting individual files.
 
-        Returns:
-            HTTP response containing a list of all files.
-        """
+    Attributes:
+        `authentication_classes`: List of authentication classes. Default is JWTAuthentication.
 
-        if not request.user:
-            return Response({
-                "status": status.HTTP_401_UNAUTHORIZED,
-                "message": "Access denied!",
-            })
-        return self.get_files_list(request)
-
-    def delete(self, request: Request) -> Response:
-        """Handle DELETE requests to delete all files.
-
-        Args:
-            request: HTTP request object.
-
-        Returns:
-            HTTP response indicating success or failure of the operation.
-        """
-
-        if not request.user:
-            return Response({
-                "status": status.HTTP_401_UNAUTHORIZED,
-                "message": "Access denied!",
-            })
-        return self.delete_all_files()
-
-
-class FileAPI(views.APIView):
-    """View for fetching and deleting individual files."""
+    Methods:
+        - `get(request)`: Handles GET requests to get a file.
+        - `delete(request)`: Handles DELETE requests to delete a file.
+    """
 
     authentication_classes = [JWTAuthentication]
 
-    @staticmethod
-    def get_file(request: Request, file_id: str) -> Response:
+    def get(self, request: Request, file_id: str) -> Response:
         """Get the details of a file.
 
         Args:
@@ -97,6 +98,11 @@ class FileAPI(views.APIView):
         Returns:
             The response containing the file details.
         """
+        if not request.user:
+            return Response({
+                "status": status.HTTP_401_UNAUTHORIZED,
+                "message": "Access denied!",
+            })
 
         file = File.objects.filter(file_id=file_id).first()
 
@@ -112,16 +118,21 @@ class FileAPI(views.APIView):
             "file": FileSerializer(file, context={"request": request}).data,
         })
 
-    @staticmethod
-    def delete_file(file_id: str) -> Response:
+    def delete(self, request: Request, file_id: str) -> Response:
         """Delete a file.
 
         Args:
+            request: HTTP request
             file_id: The ID of the file to delete.
 
         Returns:
             The response indicating whether the file was successfully deleted.
         """
+        if not request.user:
+            return Response({
+                "status": status.HTTP_401_UNAUTHORIZED,
+                "message": "Access denied!",
+            })
 
         file = File.objects.filter(file_id=file_id).first()
 
@@ -137,39 +148,3 @@ class FileAPI(views.APIView):
             "status": status.HTTP_200_OK,
             "message": "File deleted successfully",
         })
-
-    def get(self, request: Request, file_id: str) -> Response:
-        """Handler for GET requests to fetch a file.
-
-        Args:
-            request: The HTTP request object.
-            file_id: The ID of the file to fetch.
-
-        Returns:
-            The response containing the file details.
-        """
-
-        if not request.user:
-            return Response({
-                "status": status.HTTP_401_UNAUTHORIZED,
-                "message": "Access denied!",
-            })
-        return self.get_file(request, file_id)
-
-    def delete(self, request: Request, file_id: str) -> Response:
-        """Handler for DELETE requests to delete a file.
-
-        Args:
-            request: The HTTP request object.
-            file_id: The ID of the file to delete.
-
-        Returns:
-            The response indicating whether the file was successfully deleted.
-        """
-
-        if not request.user:
-            return Response({
-                "status": status.HTTP_401_UNAUTHORIZED,
-                "message": "Access denied!",
-            })
-        return self.delete_file(file_id)

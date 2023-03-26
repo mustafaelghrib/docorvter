@@ -1,16 +1,38 @@
+"""
+A module that contains serializers of the files package.
+
+Classes:
+    - `FileSerializer`: A class that serializer the File model.
+"""
+
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from .models import File
 
 
 class FileSerializer(ModelSerializer):
-    """Serializer for File model."""
+    """Serializer for the File model.
 
-    html_file = SerializerMethodField()
-    pdf_file = SerializerMethodField()
+    Attributes:
+        html_file: The html file path
+        pdf_file: The pdf file path
+
+    Methods:
+        - `get_html_file(file)`: A method to get the html file url
+        - `get_pdf_file(file)`: A method to get the pdf file url
+    """
+
+    html_file: SerializerMethodField = SerializerMethodField()
+    pdf_file: SerializerMethodField = SerializerMethodField()
 
     class Meta:
-        """Metaclass for FileSerializer."""
+        """Metaclass for FileSerializer.
+
+        Attributes:
+            model: The File model
+            fields: A list of File fields that need to be serialized
+        """
+
         model = File
         fields = [
             "file_id",
