@@ -10,3 +10,4 @@ migrations
 .pytest_cache
 .venv
 
+site
