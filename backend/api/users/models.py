@@ -2,8 +2,7 @@
 A module that contains models of the users package.
 
 Classes:
-    - [`AuthUser`][backend.api.users.models.AuthUser]:
-    A class that creating user model.
+    - `AuthUser`: A class that creating user model.
 """
 
 from uuid import uuid4
@@ -28,12 +27,9 @@ class AuthUser(models.Model):
         updated_at: the updated datatime when updating the user
 
     Methods:
-        - [`set_password(raw_password)`][backend.api.users.models.AuthUser.set_password]:
-        A method to set user password to hash password
-        - [`check_password(new_password)`][backend.api.users.models.AuthUser.check_password]:
-        A method to check if the password is correct or not
-        - [`set_token(email)`][backend.api.users.models.AuthUser.set_token]:
-        A method to set user token
+        - `set_password(raw_password)`: A method to set user password to hash password
+        - `check_password(new_password)`: A method to check if the password is correct or not
+        - `set_token(email)`: A method to set user token
     """
 
     class Meta:

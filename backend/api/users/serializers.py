@@ -2,8 +2,7 @@
 A module that contains serializers of the users package.
 
 Classes:
-    - [`UserSerializer`][backend.api.users.serializers.UserSerializer]:
-    A class that serializer the AuthUser model.
+    - `UserSerializer`: A class that serializer the AuthUser model.
 """
 
 from rest_framework import serializers
@@ -18,8 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
         password: The password of the user and it is written only
 
     Methods:
-        - [`validate_password(password)`][backend.api.users.serializers.UserSerializer.validate_password]:
-        A method to validate the user password when registering
+        - `validate_password(password)`: A method to validate the user password when registering
     """
 
     password: serializers.CharField = serializers.CharField(write_only=True)

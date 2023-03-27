@@ -2,10 +2,8 @@
 This module contains the views of the users package.
 
 Classes:
-    - [`UserRegisterAPI`][backend.api.users.views.UserRegisterAPI]:
-    A class that contains post endpoint for user registration
-    - [`UserLoginAPI`][backend.api.users.views.UserLoginAPI]:
-    A class that contains post endpoint for user login
+    - `UserRegisterAPI`: A class that contains post endpoint for user registration
+    - `UserLoginAPI`: A class that contains post endpoint for user login
 """
 
 from rest_framework import views, status
@@ -20,8 +18,7 @@ class UserRegisterAPI(views.APIView):
     """API View for user registration.
 
     Methods:
-        - [`post`][backend.api.users.views.UserRegisterAPI.post]:
-        A method for making POST request to register user
+        - `post`: A method for making POST request to register user
     """
 
     def post(self, request: Request) -> Response:
@@ -77,8 +74,7 @@ class UserLoginAPI(views.APIView):
     """API view for user login.
 
     Methods:
-        - [`post`][backend.api.users.views.UserLoginAPI.post]:
-        A method for making POST request for user login
+        - `post`: A method for making POST request for user login
     """
 
     def post(self, request: Request) -> Response:

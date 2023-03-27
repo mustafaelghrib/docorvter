@@ -2,14 +2,11 @@
 A module that contains the custom JWT Auth.
 
 Classes:
-    - [`JWTAuthentication`][backend.api.users.jwt_auth.JWTAuthentication]:
-        A class that handle custom JWT Auth.
+    - `JWTAuthentication`: A class that handle custom JWT Auth.
 
 Functions:
-    - [`generate_token(email, key)`][backend.api.users.jwt_auth.generate_token]:
-     A function that generate JWT token.
-    - [`verify_token(token, key)`][backend.api.users.jwt_auth.verify_token]:
-     A function that verify JWT token.
+    - `generate_token(email, key)`: A function that generate JWT token.
+    - `verify_token(token, key)`: A function that verify JWT token.
 """
 
 import jwt
