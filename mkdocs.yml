@@ -12,4 +12,5 @@ plugins:
   - mkdocstrings
 nav:
   - index.md
+  - API Documentation: api_docs/
   - Code Reference: reference/
