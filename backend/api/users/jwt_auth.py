@@ -16,7 +16,6 @@ import jwt
 from django.conf import settings
 from rest_framework import authentication, exceptions
 from rest_framework.request import Request
-from .models import AuthUser
 
 
 class JWTAuthentication(authentication.BaseAuthentication):
@@ -27,7 +26,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
             A function that handle JWT authentication.
     """
 
-    def authenticate(self, request: Request) -> (AuthUser, None):
+    def authenticate(self, request: Request):
         """Authenticate user based on JWT token in request header.
 
         Args:

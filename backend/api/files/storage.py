@@ -23,7 +23,7 @@ class OverwriteStorage(FileSystemStorage):
         - `get_available_name(name, max_length)`: A method to get file name and override it
     """
 
-    def get_available_name(self, name: str, max_length: Optional[int, None] = None) -> str:
+    def get_available_name(self, name: str, max_length: int = None) -> str:
         """Return a filename that's available for new content to be written to.
 
         If the file already exists, it is deleted to allow overwriting.
