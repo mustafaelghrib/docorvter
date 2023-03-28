@@ -11,6 +11,7 @@ plugins:
   - section-index
   - mkdocstrings
 nav:
-  - index.md
+  - Home: index.md
+  - Documents: documents/
   - API Documentation: api_docs/
   - Code Reference: reference/

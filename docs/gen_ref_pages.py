@@ -6,7 +6,7 @@ import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
 
-ignore_list = ["src", "migrations", "manage"]
+ignore_list = ["src", "migrations", "manage", "conftest"]
 
 for path in sorted(Path("backend").rglob("*.py")):
     if not any(ignore_item in str(path) for ignore_item in ignore_list):
