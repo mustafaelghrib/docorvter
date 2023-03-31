@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpRequest
 
 
 def index_view(request: HttpRequest) -> HttpResponse:
-    """An index view for the root url of the api
+    """Show index view for the root url of the api.
 
     Args:
         request: the http request
