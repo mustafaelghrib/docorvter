@@ -11,3 +11,5 @@ migrations
 .venv
 
 site
+.cov_html
+.coverage
