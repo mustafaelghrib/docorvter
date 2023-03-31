@@ -44,7 +44,7 @@ class FileListAPI(views.APIView):
                 "message": "Access denied!",
             })
 
-        files = File.objects.all()
+        files = request.user.files.all()
 
         return Response({
             "status": status.HTTP_200_OK,
@@ -67,7 +67,7 @@ class FileListAPI(views.APIView):
                 "message": "Access denied!",
             })
 
-        File.objects.all().delete()
+        request.user.files.all().delete()
 
         return Response({
             "status": status.HTTP_200_OK,
@@ -104,7 +104,7 @@ class FileDetailAPI(views.APIView):
                 "message": "Access denied!",
             })
 
-        file = File.objects.filter(file_id=file_id).first()
+        file = request.user.files.filter(file_id=file_id).first()
 
         if not file:
             return Response({
@@ -134,7 +134,7 @@ class FileDetailAPI(views.APIView):
                 "message": "Access denied!",
             })
 
-        file = File.objects.filter(file_id=file_id).first()
+        file = request.user.files.filter(file_id=file_id).first()
 
         if not file:
             return Response({

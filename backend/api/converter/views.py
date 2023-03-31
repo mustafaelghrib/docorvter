@@ -53,7 +53,11 @@ class HtmlConvertAPI(views.APIView):
             })
 
         html_file = request.data.get('html_file')
-        file = File.objects.create(html_file=html_file, uploaded_at=datetime.now())
+        file = File.objects.create(
+            html_file=html_file,
+            uploaded_at=datetime.now(),
+            user=request.user
+        )
 
         convert_html_file.delay(file.file_id)
 

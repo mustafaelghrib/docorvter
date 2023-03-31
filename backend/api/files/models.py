@@ -10,6 +10,7 @@ from uuid import uuid4
 from django.db import models
 
 from .storage import OverwriteStorage
+from ..users.models import AuthUser
 
 
 class File(models.Model):
@@ -23,6 +24,7 @@ class File(models.Model):
         converted_at: The datetime when converting the file
         created_at: The datetime when the file is created
         updated_at: The updated datatime when updating the file
+        user: A foreign key to AuthUser model
     """
 
     class Meta:
@@ -44,3 +46,10 @@ class File(models.Model):
 
     created_at: models.DateTimeField = models.DateTimeField(auto_now_add=True)
     updated_at: models.DateTimeField = models.DateTimeField(auto_now=True, null=True)
+
+    user = models.ForeignKey(
+        AuthUser,
+        related_name='files',
+        on_delete=models.CASCADE,
+        null=True,
+    )
