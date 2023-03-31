@@ -47,6 +47,22 @@ A Document Converter Backend API
 
 ---
 
+## The Production Environment:
+
+### Run The Backend Locally:
+- Setup and run the [infrastructure](#Infrastructure)
+- Get the environment variables from the infrastructure:
+  ```shell
+  python scripts/get_infra_output.py --c=infrastructure/.docker-compose.yml --m=aws --f=env
+  ```
+- Copy `backend/.env.sample/.env.production` to `backend/.env/.env.production` and update it.
+- Run The Backend API:
+  ```shell
+  docker compose -f backend/.docker-compose/production.yml up -d --build
+  ```
+
+---
+
 ## Infrastructure
 
 **Setup Terraform Backend:**
