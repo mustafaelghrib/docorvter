@@ -1,0 +1,89 @@
+version: '3.9'
+
+services:
+
+  django:
+    image: backend_development
+    container_name: backend_development_django
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: always
+    env_file: ../.env/.env.development
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - ..:/backend
+    command: sh -c "chmod +x ./entrypoint.sh && sh ./entrypoint.sh"
+
+  postgres:
+    image: postgres:13-alpine
+    container_name: backend_development_postgres
+    env_file: ../.env/.env.development
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../../.volumes/postgres_data:/var/lib/postgresql/data
+
+  postgres_test:
+    image: postgres:13-alpine
+    container_name: backend_development_postgres_test
+    env_file: ../.env/.env.development
+    ports:
+      - "5433:5432"
+    volumes:
+      - ../../.volumes/postgres_test_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.9-management-alpine
+    container_name: backend_development_rabbitmq
+    env_file: ../.env/.env.development
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    volumes:
+      - ../../.volumes/rabbitmq_data:/kilimanjaro/rabbitmq_data
+
+  redis:
+    image: redis:6-alpine
+    container_name: backend_development_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ../../.volumes/redis_data:/data
+
+  celery:
+    image: backend_development
+    container_name: backend_development_celery
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: always
+    command: /opt/venv/bin/celery -A src.celery worker -l info
+    env_file: ../.env/.env.development
+    volumes:
+      - ..:/backend
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+
+  flower:
+    image: backend_development
+    container_name: backend_development_flower
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: always
+    command: /opt/venv/bin/celery -A src.celery flower
+    env_file: ../.env/.env.development
+    ports:
+      - "5555:5555"
+    volumes:
+      - ..:/backend
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis

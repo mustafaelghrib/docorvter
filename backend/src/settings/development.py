@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from decouple import config
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = config('DJANGO_SECRET_KEY', default="change_me_with_strong_secret_key")
 

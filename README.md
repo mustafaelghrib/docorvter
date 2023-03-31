@@ -3,41 +3,41 @@ A Document Converter Backend API
 
 ---
 
-## Backend:
+## The Development Environment:
 
 ### Run The Backend Locally:
-- Copy `backend/.env.sample` file, rename it to `backend/.env` and update it.
+- Copy `backend/.env.sample/.env.development` to `backend/.env/.env.development` and update it.
 - Run The Backend API:
   ```shell
-  docker compose -f backend/docker-compose.yml up -d --build
+  docker compose -f backend/.docker-compose/development.yml up -d --build
   ```
 
 ### Run The Tests:
 - Run Pytest:
   ```shell
-  docker exec -it backend_django /bin/bash -c "/opt/venv/bin/pytest -rP"
+  docker exec -it backend_development_django /bin/bash -c "/opt/venv/bin/pytest -rP"
   ```
 - Run Pytest Coverage:
   ```shell
-  docker exec -it backend_django /bin/bash -c "/opt/venv/bin/pytest --cov=."
+  docker exec -it backend_development_django /bin/bash -c "/opt/venv/bin/pytest --cov=."
   ```
 
 ### Docs:
 - Check Docs Coverage:
   ```shell
-  docker exec -it backend_django /bin/bash -c "/opt/venv/bin/interrogate -v ."
+  docker exec -it backend_development_django /bin/bash -c "/opt/venv/bin/interrogate -v ."
   ```
 - Check Docs Style:
   ```shell
-  docker exec -it backend_django /bin/bash -c "/opt/venv/bin/pydocstyle ."
+  docker exec -it backend_development_django /bin/bash -c "/opt/venv/bin/pydocstyle ."
   ```
 - Show Docs Locally:
   ```shell
-  docker exec -it backend_django /bin/bash -c "/opt/venv/bin/mkdocs serve"
+  docker exec -it backend_development_django /bin/bash -c "/opt/venv/bin/mkdocs serve"
   ```
 - Deploy Docs to Repo GitHub Pages:
   ```shell
-  docker exec -it backend_django /bin/bash -c "/opt/venv/bin/mkdocs gh-deploy"
+  docker exec -it backend_development_django /bin/bash -c "/opt/venv/bin/mkdocs gh-deploy"
   ```
 
 ---
