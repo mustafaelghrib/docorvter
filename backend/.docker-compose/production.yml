@@ -30,17 +30,4 @@ services:
       - ..:/backend
     command: /opt/venv/bin/celery -A src.celery worker -l info
 
-  flower:
-    image: backend_production
-    container_name: backend_production_flower
-    build:
-      context: ..
-      dockerfile: Dockerfile
-    restart: always
-    env_file: ../.env/.env.production
-    ports:
-      - "5555:5555"
-    volumes:
-      - ..:/backend
-    command: /opt/venv/bin/celery -A src.celery flower
 
