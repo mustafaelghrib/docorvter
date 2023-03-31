@@ -46,3 +46,78 @@ A Document Converter Backend API
   ```
 
 ---
+
+## Infrastructure
+
+**Setup Terraform Backend:**
+- Set Bucket Name:
+  ```shell
+  export BUCKET_NAME=docorvter-terraform-backend;
+  ```
+- Create a Bucket on AWS S3.
+  ```shell
+  aws s3api create-bucket --bucket $BUCKET_NAME --region us-east-1
+  ```
+- Empty The Bucket
+  ```shell
+  aws s3 rm s3://$BUCKET_NAME --recursive
+  ```
+- Delete The Bucket
+  ```shell
+  aws s3api delete-bucket --bucket $BUCKET_NAME
+  ```
+- Create a file and name it to `.backend.hcl` under `infrastructure` folder.
+- Copy the content of file `.backend.hcl.sample` inside it and fill the values.
+
+**Setup Secrets:**
+- Create a file with the name `.secrets.auto.tfvars` under `infrastructure` folder.
+- Copy the contents of file `.secrets.auto.tfvars.sample` inside it and fill the values.
+
+**Run Terraform Commands:**
+
+- terraform init
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform init -backend-config=.backend.hcl
+  ```
+
+---
+
+- terraform plan all
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform plan
+  ```
+- terraform plan aws
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform plan -target="module.aws"
+  ```
+
+---
+
+- terraform apply all
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform apply --auto-approve
+  ```
+- terraform apply aws
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform apply -target="module.aws" --auto-approve
+  ```
+
+---
+
+- terraform destroy all
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform destroy --auto-approve
+  ```
+- terraform destroy aws
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform destroy -target="module.aws" --auto-approve
+  ```
+
+---
+
+- terraform output aws
+  ```shell
+  docker compose -f infrastructure/.docker-compose.yml run --rm terraform output aws
+  ```
+
+---
