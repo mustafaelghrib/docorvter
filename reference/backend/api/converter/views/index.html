@@ -856,20 +856,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../files/tests/" class="md-nav__link">
-        tests
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../files/urls/" class="md-nav__link">
         urls
       </a>
@@ -968,20 +954,6 @@
     <li class="md-nav__item">
       <a href="../../users/serializers/" class="md-nav__link">
         serializers
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../users/tests/" class="md-nav__link">
-        tests
       </a>
     </li>
   
@@ -1228,7 +1200,11 @@ using Celery worker to process the conversion task asynchronously.</p>
 <span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
-<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">HtmlConvertAPI</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">APIView</span><span class="p">):</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">HtmlConvertAPI</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">APIView</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;API View for converting an HTML file to PDF asynchronously.</span>
 
 <span class="sd">    This class handles POST requests to convert an HTML file to a PDF file</span>
@@ -1265,7 +1241,11 @@ using Celery worker to process the conversion task asynchronously.</p>
             <span class="p">})</span>
 
         <span class="n">html_file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;html_file&#39;</span><span class="p">)</span>
-        <span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">html_file</span><span class="o">=</span><span class="n">html_file</span><span class="p">,</span> <span class="n">uploaded_at</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">html_file</span><span class="o">=</span><span class="n">html_file</span><span class="p">,</span>
+            <span class="n">uploaded_at</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="p">)</span>
 
         <span class="n">convert_html_file</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">file_id</span><span class="p">)</span>
 
@@ -1375,7 +1355,11 @@ using Celery worker to process the conversion task asynchronously.</p>
 <span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
-<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform HTML to PDF conversion and return a response.</span>
 
 <span class="sd">    Args:</span>
@@ -1397,7 +1381,11 @@ using Celery worker to process the conversion task asynchronously.</p>
         <span class="p">})</span>
 
     <span class="n">html_file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;html_file&#39;</span><span class="p">)</span>
-    <span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">html_file</span><span class="o">=</span><span class="n">html_file</span><span class="p">,</span> <span class="n">uploaded_at</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">html_file</span><span class="o">=</span><span class="n">html_file</span><span class="p">,</span>
+        <span class="n">uploaded_at</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+        <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+    <span class="p">)</span>
 
     <span class="n">convert_html_file</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">file_id</span><span class="p">)</span>
 

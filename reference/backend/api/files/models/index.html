@@ -856,20 +856,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../tests/" class="md-nav__link">
-        tests
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../urls/" class="md-nav__link">
         urls
       </a>
@@ -968,20 +954,6 @@
     <li class="md-nav__item">
       <a href="../../users/serializers/" class="md-nav__link">
         serializers
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../users/tests/" class="md-nav__link">
-        tests
       </a>
     </li>
   
@@ -1213,14 +1185,19 @@
           </td>
           <td><p>The updated datatime when updating the file</p></td>
         </tr>
+        <tr>
+          <td><code>user</code></td>
+          <td>
+          </td>
+          <td><p>A foreign key to AuthUser model</p></td>
+        </tr>
     </tbody>
   </table>
 
 
         <details class="quote">
           <summary>Source code in <code>backend/api/files/models.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
-<span class="normal">16</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
@@ -1250,7 +1227,16 @@
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">File</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">File</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A model representing an uploaded file and its converted version.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1261,6 +1247,7 @@
 <span class="sd">        converted_at: The datetime when converting the file</span>
 <span class="sd">        created_at: The datetime when the file is created</span>
 <span class="sd">        updated_at: The updated datatime when updating the file</span>
+<span class="sd">        user: A foreign key to AuthUser model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
@@ -1282,6 +1269,13 @@
 
     <span class="n">created_at</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">updated_at</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">AuthUser</span><span class="p">,</span>
+        <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;files&#39;</span><span class="p">,</span>
+        <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
 
@@ -1335,14 +1329,14 @@
 
         <details class="quote">
           <summary>Source code in <code>backend/api/files/models.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
-<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Metaclass for File model.</span>
 
 <span class="sd">    Attributes:</span>
