@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docorvter-deployment
+  namespace: docorvter-namespace
+  labels:
+    app: docorvter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docorvter
+  template:
+    metadata:
+      labels:
+        app: docorvter
+    spec:
+      containers:
+
+        - image: mustafaabdallah/docorvter:latest
+          name: docorvter-django
+          command: ["/bin/sh"]
+          args: ["-c", "chmod +x ./entrypoint.sh && sh ./entrypoint.sh"]
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: docorvter-env-secrets
+          ports:
+            - containerPort: 8000
+              name: gunicorn
+
+        - image: mustafaabdallah/docorvter:latest
+          name: docorvter-celery
+          command: ["opt/venv/bin/celery -A src.celery worker -l info"]
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: docorvter-env-secrets
+

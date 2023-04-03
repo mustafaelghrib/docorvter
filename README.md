@@ -61,6 +61,56 @@ A Document Converter Backend API
   docker compose -f backend/.docker-compose/production.yml up -d --build
   ```
 
+### Deploy Manually on Minikube with Docker and Kubernetes:
+- Export Values:
+  ```shell
+  export ENVIRONMENT=production;
+  export PROJECT_NAME=docorvter;
+  export DOCKER_HUB=mustafaabdallah;
+  export FINAL_IMAGE=$DOCKER_HUB/$PROJECT_NAME
+  export NAMESPACE="$PROJECT_NAME-namespace"
+  ```
+- Build a Docker Image:
+  ```shell
+  docker build -t $FINAL_IMAGE -f backend/Dockerfile backend --build-arg ENVIRONMENT=$ENVIRONMENT
+  ```
+- Push to Docker Hub:
+  ```shell
+  docker push $FINAL_IMAGE
+  ```
+- Run The Image Locally:
+  ```shell
+  python3 scripts/run_backend.py --env=backend/.env/.env.production --image=$FINAL_IMAGE
+  ```
+
+- Create a Namespace
+  ```shell
+  kubectl create namespace $NAMESPACE
+  ```
+- Create Kubernetes secret from the env file
+  ```shell
+  kubectl create secret generic "$PROJECT_NAME-env-secrets" \
+  --from-env-file=.env/.env.production \
+  --namespace=$NAMESPACE
+  ```
+- Apply Kubernetes deployment and service
+  ```shell
+  kubectl apply -f .kubernetes/deployment.yml
+  kubectl apply -f .kubernetes/service.yml
+  ```
+- Change namespace
+  ```shell
+  kubectl config set-context --current --namespace=$NAMESPACE
+  ```
+- Launch the app
+  ```shell
+  minikube service -n $NAMESPACE --url $PROJECT_NAME
+  ```
+- Delete a Namespace
+  ```shell
+  kubectl delete namespace $NAMESPACE
+  ```
+
 ---
 
 ## Infrastructure
