@@ -1,5 +1,24 @@
-## Docorvter
-A Document Converter Backend API
+# Docorvter
+A platform for converting HTML and Docx documents to PDF files.
+
+## Features
+- Convert HTML and Docx files to PDF files
+- Convert PDF files to HTML and Docx files
+- Convert multiple documents at the same time as the converting process work in the background
+- Manage all converted documents, you could see a list of all files and delete or get more details about each one
+- You could download converted documents, and bulk download list of documents at the same time
+
+## Architecture
+The backend API is built based on the monolithic architecture and has those modules:
+- **Users Module**: A module for registering and logining users
+- **Files Module**: A module for manging files
+- **Document Converter Module**: A module for converting documents
+- **Converter Module**: A module for request to convert files and contain the document converter module
+
+## Tech Stacks
+- **Backend**: Python, Django, PostgreSQL, Celery, RabbitMQ, Redis
+- **Infrastructure**: Terraform, Amazon Web Services (AWS)
+- **Deployment**: Docker, Kubernetes
 
 ---
 
