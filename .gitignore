@@ -20,3 +20,5 @@ site
 *.tfstate
 *.backup
 .secrets.auto.tfvars
+
+.idea/

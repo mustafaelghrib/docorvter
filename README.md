@@ -114,8 +114,8 @@ The backend API is built based on the monolithic architecture and has those modu
   ```
 - Apply Kubernetes deployment and service
   ```shell
-  kubectl apply -f .kubernetes/deployment.yml
-  kubectl apply -f .kubernetes/service.yml
+  kubectl apply -f kubernetes/deployment.yml
+  kubectl apply -f kubernetes/service.yml
   ```
 - Change namespace
   ```shell
